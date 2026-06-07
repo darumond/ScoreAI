@@ -1,0 +1,27 @@
+services:
+  api:
+    build:
+      context: ./apps/api
+    env_file:
+      - .env.example
+    environment:
+      OUTPUT_DIR: /app/outputs
+      CORS_ORIGINS: http://localhost:5173
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./apps/api:/app
+      - ./outputs:/app/outputs
+
+  web:
+    build:
+      context: ./apps/web
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./apps/web:/app
+      - /app/node_modules
+    depends_on:
+      - api
