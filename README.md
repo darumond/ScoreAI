@@ -1,1 +1,1 @@
-# SheetAI
+# ScoreAI
